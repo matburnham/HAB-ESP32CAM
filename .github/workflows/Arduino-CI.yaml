@@ -18,4 +18,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: Arduino-CI/action@stable-1.x
+      - uses: Arduino-CI/action@552260fdcead3b5c7eba3cd4b8b203734649f646
