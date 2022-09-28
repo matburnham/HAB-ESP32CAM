@@ -1,7 +1,5 @@
-# TODO See https://github.com/Arduino-CI/arduino_ci/issues/235#issuecomment-739629243
-
 ---
-name: Arduino CI
+name: HAB-ESP32CAM
 
 on: [push, pull_request]
 
