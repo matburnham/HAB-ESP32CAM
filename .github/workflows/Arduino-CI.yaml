@@ -1,0 +1,21 @@
+# TODO See https://github.com/Arduino-CI/arduino_ci/issues/235#issuecomment-739629243
+
+---
+name: Arduino CI
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: arduino/arduino-lint-action@v1
+        with:
+          library-manager: update
+          compliance: strict
+  arduino_ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: Arduino-CI/action@stable-1.x
