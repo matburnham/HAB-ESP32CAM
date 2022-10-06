@@ -1,0 +1,45 @@
+---
+name: HAB-ESP32CAM
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: arduino/arduino-lint-action@v1
+        with:
+          library-manager: false
+          compliance: strict
+  arduino_ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: Arduino-CI/action@552260fdcead3b5c7eba3cd4b8b203734649f646
+
+  arduino-cli:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Arduino CLI
+        uses: arduino/setup-arduino-cli@v1
+      - name: Install platform
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install esp32:esp32
+      - name: Compile sketch
+        run: arduino-cli compile --fqbn esp32:esp32:esp32cam --warnings all
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+      - name: Install Ceedling
+        run: gem install ceedling
+      - name: Run Unit Tests
+        run: ceedling test:all
